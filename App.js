@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import CategoriesScreen from "./screens/CategoriesScreen";
+import CategoryMealsScreen from "./screens/CategoryMealsScreen";
+import MealDetailScreen from "./screens/MealDetailScreen";
 
 const fetchFont = () => {
-  Font.loadAsync({
+  return Font.loadAsync({
     "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
     "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf")
   });
@@ -22,12 +27,22 @@ export default function App() {
       />
     );
   }
+
+  const Stack = createNativeStackNavigator();
+
   return (
-    <View style={styles.container}>
-      <Text style={{ fontFamily: "open-sans-bold" }}>
-        Open up App.js to start working on your app
-      </Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Categories" component={CategoriesScreen} />
+        <Stack.Screen name="Meals" component={CategoryMealsScreen} />
+        <Stack.Screen name="Detail" component={MealDetailScreen} />
+        {/* <View style={styles.container}>
+          <Text style={{ fontFamily: "open-sans-bold" }}>
+            Open up App.js to start working on your app
+          </Text>
+        </View> */}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
