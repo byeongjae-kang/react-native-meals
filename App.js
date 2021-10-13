@@ -34,19 +34,19 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name="Categories"
-          options={{
+        <Stack.Group
+          screenOptions={{
             headerStyle: {
               backgroundColor: Platform.OS === "android" ? colors.primary : ""
             },
             headerTintColor:
               Platform.OS === "android" ? "white" : colors.primary
           }}
-          component={CategoriesScreen}
-        />
-        <Stack.Screen name="Meals" component={CategoryMealsScreen} />
-        <Stack.Screen name="Detail" component={MealDetailScreen} />
+        >
+          <Stack.Screen name="Categories" component={CategoriesScreen} />
+          <Stack.Screen name="Meals" component={CategoryMealsScreen} />
+          <Stack.Screen name="Detail" component={MealDetailScreen} />
+        </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
   );
