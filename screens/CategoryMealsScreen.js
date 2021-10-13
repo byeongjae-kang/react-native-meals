@@ -1,21 +1,19 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
-import { CATEGORIES } from "../data/dummy-data";
 
-export default function CategoryMealsScreen(props) {
-  const categoryId = props.route.params.categoryId;
+export default function CategoryMealsScreen({ route, navigation }) {
+  const { selectedCategory } = route.params;
 
-  const selectedCategory = CATEGORIES.find(
-    (category) => category.id === categoryId
-  );
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: selectedCategory.name
+    });
+  }, [navigation, selectedCategory]);
 
   return (
     <View style={styles.container}>
       <Text>This is {selectedCategory.name}!!</Text>
-      <Button
-        title="To Detail"
-        onPress={() => props.navigation.navigate("Detail")}
-      />
+      <Button title="To Detail" onPress={() => navigation.navigate("Detail")} />
     </View>
   );
 }
