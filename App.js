@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import { NavigationContainer } from "@react-navigation/native";
@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CategoriesScreen from "./screens/CategoriesScreen";
 import CategoryMealsScreen from "./screens/CategoryMealsScreen";
 import MealDetailScreen from "./screens/MealDetailScreen";
+import colors from "./constants/colors";
 
 const fetchFont = () => {
   return Font.loadAsync({
@@ -23,7 +24,7 @@ export default function App() {
       <AppLoading
         startAsync={fetchFont}
         onFinish={() => setFontLoaded(true)}
-        onError={() => console.log("Failed to load fonts")}
+        onError={() => console.log("Fail to load fonts")}
       />
     );
   }
@@ -33,24 +34,22 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Categories" component={CategoriesScreen} />
+        <Stack.Screen
+          name="Categories"
+          options={{
+            headerStyle: {
+              backgroundColor: Platform.OS === "android" ? colors.primary : ""
+            },
+            headerTintColor:
+              Platform.OS === "android" ? "white" : colors.primary
+          }}
+          component={CategoriesScreen}
+        />
         <Stack.Screen name="Meals" component={CategoryMealsScreen} />
         <Stack.Screen name="Detail" component={MealDetailScreen} />
-        {/* <View style={styles.container}>
-          <Text style={{ fontFamily: "open-sans-bold" }}>
-            Open up App.js to start working on your app
-          </Text>
-        </View> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
+const styles = StyleSheet.create({});
