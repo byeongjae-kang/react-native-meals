@@ -9,7 +9,7 @@ export default function CategoriesScreen(props) {
         style={styles.gridItem}
         onPress={() =>
           props.navigation.navigate("Meals", {
-            categoryId: dataItem.item.id
+            selectedCategory: dataItem.item
           })
         }
       >
