@@ -1,38 +1,39 @@
 import React from "react";
-import { FlatList, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
+import CategoryGridTile from "../components/CategoryGridTile";
 import { CATEGORIES } from "../data/dummy-data";
 
 export default function CategoriesScreen(props) {
   const renderGridItem = (dataItem) => {
     return (
-      <TouchableOpacity
-        style={styles.gridItem}
-        onPress={() =>
+      <CategoryGridTile
+        title={dataItem.item.name}
+        color={dataItem.item.color}
+        onSelect={() =>
           props.navigation.navigate("Meals", {
             selectedCategory: dataItem.item
           })
         }
-      >
-        <Text>{dataItem.item.name}</Text>
-      </TouchableOpacity>
+      />
     );
   };
 
   return (
-    <FlatList
-      keyExtractor={(item) => item.id}
-      numColumns={2}
-      data={CATEGORIES}
-      renderItem={renderGridItem}
-    />
+    <View style={styles.screen}>
+      <FlatList
+        keyExtractor={(item) => item.id}
+        numColumns={2}
+        data={CATEGORIES}
+        renderItem={renderGridItem}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  gridItem: {
+  screen: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 20
+    alignContent: "center",
+    justifyContent: "center"
   }
 });
